@@ -1,0 +1,12 @@
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe.config
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.pdb
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.csprojResolveAssemblyReference.cache
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier_Transform_Visualizer.FTV.resources
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier_Transform_Visualizer.Properties.Resources.resources
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.csproj.GenerateResource.Cache
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.exe
+c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.pdb
+C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe.config
+C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.exe
+C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.pdb
