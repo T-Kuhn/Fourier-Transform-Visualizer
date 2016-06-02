@@ -1,19 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Fourier_Transform_Visualizer
 {
-
-
     public partial class FTV : Form
     {
         public FourierTransform FT;
@@ -23,16 +15,23 @@ namespace Fourier_Transform_Visualizer
         public Random random;
         public Thread thread1;
 
+        private Bitmap picBox4img;
+        private Graphics picBox4Graphics;
+        private bool initflag = false;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public FTV()
         {
             InitializeComponent();
             random = new Random();
-            FT = new FourierTransform(512);
-            plotter1 = new Plotter(512);
-            plotter2 = new Plotter(512);
-            plotter3 = new Plotter(512);
+            FT = new FourierTransform(4096);
+            plotter1 = new Plotter(4096, 512);
+            plotter2 = new Plotter(4096, 512);
+            plotter3 = new Plotter(4096, 512);
 
-            thread1 = new Thread(new ThreadStart(Thread1));
+            thread1 = new Thread(Thread1);
             // start thread
             thread1.Start();
         }
@@ -51,13 +50,13 @@ namespace Fourier_Transform_Visualizer
         {
             while (true)
             {
-                if (plotter1.drawingReq == true)
+                if (plotter1.drawingReq)
                 {
                     plotter1.drawingFlag = true;
                     Bitmap flag = new Bitmap(pictureBox1.Width, pictureBox1.Height);
                     Graphics flagGraphics = Graphics.FromImage(flag);
 
-                    for (int i = 0; i < plotter1.N - 1; i++)
+                    for (int i = 0; i < plotter1.plottN - 1; i++)
                     {
                         flagGraphics.DrawLine(new Pen(Brushes.Green, 1), new Point(plotter1.pos[i].X + 5, pictureBox1.Height - 50 - plotter1.pos[i].Y),
                             new Point(plotter1.pos[i + 1].X + 5, pictureBox1.Height - 50 - plotter1.pos[i + 1].Y));
@@ -72,13 +71,13 @@ namespace Fourier_Transform_Visualizer
                     plotter1.drawingFlag = false;
                     plotter1.drawingReq = false;
                 }
-                if (plotter2.drawingReq == true)
+                if (plotter2.drawingReq)
                 {
                     plotter2.drawingFlag = true;
                     Bitmap flag = new Bitmap(pictureBox2.Width, pictureBox2.Height);
                     Graphics flagGraphics = Graphics.FromImage(flag);
 
-                    for (int i = 0; i < plotter2.N - 1; i++)
+                    for (int i = 0; i < plotter2.plottN - 1; i++)
                     {
                         flagGraphics.DrawLine(new Pen(Brushes.White, 1), new Point(plotter2.pos[i].X + 5, pictureBox2.Height - plotter2.pos[i].Y),
                             new Point(plotter2.pos[i + 1].X + 5, pictureBox2.Height - plotter2.pos[i + 1].Y));
@@ -90,28 +89,47 @@ namespace Fourier_Transform_Visualizer
                             Thread.Sleep(10);
                         }
                     }
-                    pictureBox2.Image = flag;
+                    //pictureBox2.Image = flag;
                     plotter2.drawingFlag = false;
                     plotter2.drawingReq = false;
                 }
-                if (plotter3.drawingReq == true)
+                if (plotter3.drawingReq)
                 {
+                    if (!initflag)
+                    {
+                        picBox4img = new Bitmap(plotter1.imgWidth, plotter1.imgHeight);
+                        picBox4Graphics = Graphics.FromImage(picBox4img);
+                        initflag = true;
+                    }
                     if (checkBox1.Checked)
                     {
                         plotter3.drawingFlag = true;
                         Bitmap flag = new Bitmap(pictureBox3.Width, pictureBox3.Height);
-                        Graphics flagGraphics = Graphics.FromImage(flag);
-                        for (int ii = 0; ii <= plotter3.N; ii++)
+                        plotter3.reset();
+                        int tmpCntr = plotter3.N/2;
+                        //for (int ii = 0; ii < plotter3.N; ii++)
+                        for (int ii = plotter3.N/2 -1; ii >= 0; ii--)
                         {
-                            FT.calcIFT(plotter3, ii);
+                            FT.calcIFTsingleNumber(plotter3, ii);
+                            FT.calcIFTsingleNumber(plotter3, tmpCntr);
+                            tmpCntr++;
                             plotter3.calculateIntpos(1);
                             flag = new Bitmap(pictureBox3.Width, pictureBox3.Height);
-                            flagGraphics = Graphics.FromImage(flag);
+                            Graphics flagGraphics = Graphics.FromImage(flag);
                             for (int i = 0; i < plotter3.N - 1; i++)
                             {
-                                flagGraphics.DrawLine(new Pen(Brushes.Yellow, 1), new Point(plotter3.pos[i].X + 5, pictureBox3.Height - 50 - plotter3.pos[i].Y),
-                                    new Point(plotter3.pos[i + 1].X + 5, pictureBox3.Height - 50 - plotter3.pos[i + 1].Y));
+                                if (i <= plotter3.plottN)
+                                {
+                                    flagGraphics.DrawLine(new Pen(Brushes.Yellow, 1), new Point(plotter3.pos[i].X + 5, pictureBox3.Height - 50 - plotter3.pos[i].Y),
+                                        new Point(plotter3.pos[i + 1].X + 5, pictureBox3.Height - 50 - plotter3.pos[i + 1].Y));
+                                }
+                                int tmp = System.Convert.ToInt32(plotter3.pos[i].Y* 2.55);
+                                //tmp = 255 - tmp;
+                                if (tmp > 255) tmp = 255;
+                                if (tmp < 0) tmp = 0;
+                                picBox4img.SetPixel(plotter3.pos[i].X % plotter1.imgWidth, plotter3.pos[i].X / plotter1.imgWidth, Color.FromArgb(255, tmp, tmp, tmp));
                             }
+                            pictureBox4.Image = (Bitmap) picBox4img.Clone();
                             pictureBox3.Image = flag;
                         }
                         pictureBox3.Image = flag;
@@ -122,7 +140,7 @@ namespace Fourier_Transform_Visualizer
                         Bitmap flag = new Bitmap(pictureBox3.Width, pictureBox3.Height);
                         Graphics flagGraphics = Graphics.FromImage(flag);
 
-                        FT.calcIFT(plotter3, plotter3.N);
+                        FT.calcIFTuntilNumber(plotter3, plotter3.N);
                         plotter3.calculateIntpos(1);
                         for (int i = 0; i < plotter3.N - 1; i++)
                         {
@@ -137,7 +155,6 @@ namespace Fourier_Transform_Visualizer
 
                         pictureBox3.Image = flag;
                     }
-
                     plotter3.drawingFlag = false;
                     plotter3.drawingReq = false;
                 }
@@ -158,6 +175,7 @@ namespace Fourier_Transform_Visualizer
                 case 5: plotter1.natPosValPlusNoise(random.Next(30), random.Next(30), random.Next(60)); break;
                 case 6: plotter1.xTothePowerof2(random.Next(200)); break;
                 case 7: plotter1.RectPosVal2(random.Next(60), random.Next(60),random.Next(60)); break;
+                case 8: plotter1.loadDataFromPic(); break;
             }
 
             if (!plotter1.drawingFlag)
@@ -216,14 +234,16 @@ namespace Fourier_Transform_Visualizer
 
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void label2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void label2_Click(object sender, EventArgs e)
+        private void button5_Click(object sender, EventArgs e)
         {
 
+
+        Debug.WriteLine("we did it.");
         }
     }
 }

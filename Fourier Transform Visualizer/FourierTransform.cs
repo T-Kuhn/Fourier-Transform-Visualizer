@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Fourier_Transform_Visualizer
 {
@@ -38,7 +34,14 @@ namespace Fourier_Transform_Visualizer
                 }
             }
         }
-        public void calcIFT(Plotter pltr, int nmbr)
+        /// <summary>
+        /// calculates the inverse fourier transform until a certain frequency number.
+        /// For example, if nmbr = 10
+        /// the inverse fourier transform including all frequencies from 0 to 10 will be returned
+        /// </summary>
+        /// <param name="pltr">the plotterobject in which the result will be saved</param>
+        /// <param name="nmbr">frequencyNumber. all frequencies up until this number will be included in the calculation of the IFT</param>
+        public void calcIFTuntilNumber(Plotter pltr, int nmbr)
         {
             for (int h = 0; h < N; h++)
             {
@@ -57,6 +60,21 @@ namespace Fourier_Transform_Visualizer
                 pltr.doublepos[j].Y = pltr.doublepos[j].Y / N;
             }
         }
+        /// <summary>
+        /// calculate only a single frequency of the Inverse Fourier Transform.
+        /// </summary>
+        /// <param name="pltr">the plotterobject in which the result will be saved</param>
+        /// <param name="nmbr">the Frequency with wich the Inverse Fourier Transform will be performed.</param>
+        public void calcIFTsingleNumber(Plotter pltr, int nmbr)
+        {
+            //for-loop for all the k values
+            for (int j = 0; j < N; j++)
+            {
+                pltr.doublepos[j].X = j;
+
+                pltr.doublepos[j].Y += (Re[nmbr]*Math.Cos(2*Math.PI/N*nmbr*j) - Im[nmbr]*Math.Sin(2*Math.PI/N*nmbr*j))/N;
+            }
+        }
         public void cutFreq(int nmbr)
         {
             for (int i = nmbr; i < N - nmbr; i++)
@@ -70,7 +88,7 @@ namespace Fourier_Transform_Visualizer
             for (int i = 0; i < N; i++)
             {
                 pltr.doublepos[i].X = i;
-                pltr.doublepos[i].Y = (Re[i] * Re[i] + Im[i] * Im[i]) /100;
+                pltr.doublepos[i].Y = (Re[i] * Re[i] + Im[i] * Im[i]) /400;
 
             }
 

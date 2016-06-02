@@ -13,19 +13,12 @@ namespace Fourier_Transform_Visualizer
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-
-
-
-
-
         [STAThread]
         static void Main()
         {
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             FTV FourierTransformForm = new FTV();
-            Debug.WriteLine("asd");
             Application.Run(FourierTransformForm);
         }
     }

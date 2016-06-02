@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Drawing;
 
@@ -10,22 +6,27 @@ namespace Fourier_Transform_Visualizer
 {
     public class Plotter
     {
-        //N describes for the number of samples
+        // N describes the number of samples
         public int N;
-        //doublepos[] contains coordinates in the format double of points in the xy-plane
+        // N for plotting purposes
+        public int plottN;
+        // doublepos[] contains coordinates in the format double of points in the xy-plane
         public DoublePoint[] doublepos;
-        //Point[] in int for displaying purpose
+        // Point[] in int for displaying purpose
         public Point[] pos;
-        //Random Object
+        // Random number generator
         public Random ran;
-        //this flag is high while the graph is beeing plotted
+        // this flag is high while the graph is beeing plotted
         public bool drawingFlag;
-        //drawing request flag. If this is high a graph has to be drawn.
+        // drawing request flag. If this is high a graph has to be drawn.
         public bool drawingReq;
-        //the constructor
-        public Plotter(int nmbr)
+        public int imgWidth;
+        public int imgHeight;
+        // the constructor
+        public Plotter(int nmbr, int plottNmbr)
         {
             N = nmbr;
+            plottN = plottNmbr;
             doublepos = new DoublePoint[nmbr];
             pos = new Point[nmbr];
             ran = new Random();
@@ -167,12 +168,49 @@ namespace Fourier_Transform_Visualizer
                 }
             }
         }
+        public void loadDataFromPic()
+        {
+            Bitmap img = new Bitmap("C://git/Fourier-Transform-Visualizer/64x64pic_1.png");
+            DoublePoint[] tmp;
+            imgWidth = img.Width;
+            imgHeight = img.Height;
+            int length = img.Width*img.Height;
+            tmp = new DoublePoint[length];
+            for (int i = 0; i < length; i++)
+            {
+                tmp[i] = new DoublePoint(0, 0);
+            }
+
+            for (int i = 0; i < img.Height; i++)
+            {
+                for (int j = 0; j < img.Width; j++)
+                {
+                    tmp[j + img.Width*i].X = j + img.Width * i;
+                    tmp[j + img.Width*i].Y = img.GetPixel(j, i).GetBrightness()*100;
+                }
+            }
+
+            for (int i = 0; i < N; i++)
+            {
+                doublepos[i].X = tmp[i].X;
+                doublepos[i].Y = tmp[i].Y;
+            }
+        }
         public void calculateIntpos(int nmbr)
         {
             for (int i = 0; i < N; i++)
             {
                 pos[i].X = System.Convert.ToInt32(doublepos[i].X);
                 pos[i].Y = System.Convert.ToInt32(doublepos[i].Y / nmbr);
+            }
+        }
+
+        public void reset()
+        {
+            for (int i = 0; i < N; i++)
+            {
+                doublepos[i] = new DoublePoint(0, 0);
+                pos[i] = new Point(0, 0);
             }
         }
     }

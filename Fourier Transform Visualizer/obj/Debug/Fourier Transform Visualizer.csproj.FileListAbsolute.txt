@@ -10,3 +10,16 @@ c:\users\admin\documents\visual studio 2013\Projects\Fourier Transform Visualize
 C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe.config
 C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.exe
 C:\git\Fourier Transform Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.pdb
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe.config
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.exe
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.pdb
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.pdb
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier_Transform_Visualizer.FTV.resources
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier_Transform_Visualizer.Properties.Resources.resources
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.csproj.GenerateResource.Cache
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.exe.manifest
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\bin\Debug\Fourier Transform Visualizer.application
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.exe.manifest
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.application
+C:\git\Fourier-Transform-Visualizer\Fourier Transform Visualizer\obj\Debug\Fourier Transform Visualizer.csprojResolveAssemblyReference.cache
